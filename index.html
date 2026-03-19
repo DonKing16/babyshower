@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Baby Shower - Melody Alondra 🌸</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Lato:wght@300;400;700&display=swap');
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: #fce4ef;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      font-family: 'Lato', sans-serif;
+      padding: 20px 16px 40px;
+      overflow-x: hidden;
+    }
+
+    /* ── Emojis flotantes de fondo ── */
+    .floats {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .floats span {
+      position: absolute;
+      bottom: -60px;
+      opacity: 0;
+      animation: floatUp linear infinite;
+    }
+    @keyframes floatUp {
+      0%   { transform: translateY(0) rotate(0deg);      opacity: 0;   }
+      10%  { opacity: 0.5; }
+      90%  { opacity: 0.4; }
+      100% { transform: translateY(-110vh) rotate(20deg); opacity: 0;  }
+    }
+
+    /* ══════════════════════════
+       TARJETA
+       ══════════════════════════ */
+    .card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 400px;
+      border-radius: 32px;
+      overflow: hidden;
+      box-shadow: 0 16px 60px rgba(200, 80, 130, 0.22);
+      margin-top: 10px;
+    }
+
+    /* ── Imagen de fondo ── */
+    .bg-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      z-index: 0;
+    }
+
+    /* ── Capa de contenido encima de la imagen ── */
+    .overlay {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      /* Altura proporcional 9:16 para respetar la imagen */
+      padding-bottom: 177.78%;
+    }
+
+    /* Todo el contenido se posiciona dentro del overlay */
+    .content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    /* ── Nombre en el listón ── */
+    /* El listón está aprox. entre 32% y 42% de altura de la imagen */
+    .ribbon-area {
+      margin-top: 45%;
+      width: 78%;
+      text-align: center;
+      padding: 4px 10px 6px;
+    }
+
+    .ribbon-name {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(0.5rem, 5.5vw, 1.65rem);
+      color: #9b3d60;
+      line-height: 1.2;
+      text-shadow: 0 1px 6px rgba(255,255,255,0.6);
+    }
+
+    /* ── Zona central de datos ── */
+    /* El espacio rosa vacío empieza aprox. al 44% */
+    .data-area {
+      margin-top: 4%;
+      width: 76%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      text-align: center;
+    }
+
+    .invite-label {
+      font-size: clamp(0.58rem, 2vw, 0.70rem);
+      color: rgba(140, 50, 80, 0.80);
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      font-weight: 400;
+    }
+
+    .divider {
+      width: 55%;
+      height: 1px;
+      background: rgba(160, 70, 100, 0.30);
+      margin: 2px 0;
+    }
+
+    .preview-msg {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(0.82rem, 3vw, 1rem);
+      color: #9b3d60;
+      text-align: center;
+      line-height: 1.5;
+      padding: 4px 6px;
+      text-shadow: 0 1px 4px rgba(255,255,255,0.7);
+    }
+
+    .detail-row {
+      font-size: clamp(0.78rem, 2.8vw, 0.90rem);
+      color: #7a2d50;
+      font-weight: 600;
+      line-height: 1.55;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    /* ── Cuenta regresiva ── */
+    .cd-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(0.88rem, 3.2vw, 1.05rem);
+      color: #9b3d60;
+      margin-top: 4px;
+      margin-bottom: 2px;
+    }
+
+    .cd-boxes {
+      display: flex;
+      gap: clamp(4px, 2vw, 8px);
+      justify-content: center;
+    }
+
+    .cd-box {
+      background: rgba(255, 255, 255, 0.55);
+      border: 1.5px solid rgba(200, 100, 140, 0.40);
+      border-radius: 11px;
+      padding: clamp(5px, 2vw, 8px) clamp(7px, 3vw, 12px);
+      min-width: clamp(48px, 15vw, 62px);
+      backdrop-filter: blur(6px);
+      text-align: center;
+    }
+
+    .cd-box .num {
+      font-size: clamp(1.2rem, 4.5vw, 1.6rem);
+      font-weight: 700;
+      color: #9b3d60;
+      line-height: 1;
+    }
+
+    .cd-box .lbl {
+      font-size: clamp(0.50rem, 1.7vw, 0.60rem);
+      color: rgba(140, 50, 80, 0.80);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 2px;
+    }
+
+    #event-msg {
+      display: none;
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(1rem, 4vw, 1.3rem);
+      color: #9b3d60;
+      animation: pulse 1s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%,100% { transform: scale(1); }
+      50%      { transform: scale(1.07); }
+    }
+
+    /* ── WhatsApp ── */
+    .confirm-label {
+      font-size: clamp(0.62rem, 2vw, 0.72rem);
+      color: rgba(130, 50, 75, 0.78);
+      font-style: italic;
+      margin-top: 4px;
+    }
+
+    .wa-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: #25D366;
+      color: #fff;
+      font-family: 'Lato', sans-serif;
+      font-size: clamp(0.80rem, 3vw, 0.92rem);
+      font-weight: 700;
+      text-decoration: none;
+      padding: clamp(8px, 2.5vw, 11px) clamp(18px, 6vw, 28px);
+      border-radius: 50px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+      transition: transform 0.15s, box-shadow 0.15s;
+      margin-top: 4px;
+    }
+    .wa-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 6px 22px rgba(0,0,0,0.24);
+    }
+    .wa-btn svg {
+      width: 17px; height: 17px;
+      fill: #fff; flex-shrink: 0;
+    }
+
+    .footer-deco {
+      font-size: 1.1rem;
+      letter-spacing: 4px;
+      margin-top: 5px;
+      opacity: 0.60;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 440px) {
+      body { padding: 10px 8px 30px; }
+      .card { border-radius: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- EMOJIS FLOTANTES TEMÁTICOS -->
+  <div class="floats" id="floats"></div>
+
+  <div class="card">
+
+    <!-- IMAGEN DE FONDO COMPLETA -->
+    <img class="bg-img" src="fondo.png" alt="Baby Shower Melody Alondra">
+
+    <!-- OVERLAY CON TODO EL CONTENIDO -->
+    <div class="overlay">
+      <div class="content">
+
+        <!-- NOMBRE SOBRE EL LISTÓN -->
+        <div class="ribbon-area">
+          <div class="ribbon-name">
+            Melody Alondra Lopez Rimarachin
+          </div>
+        </div>
+
+        <!-- DATOS EN EL ESPACIO ROSA CENTRAL -->
+        <div class="data-area">
+
+          <p class="invite-label">✨ ¡Estás invitad@ a celebrar! ✨</p>
+
+          <p class="preview-msg">
+            Ven a compartir amor, risas y mucha ternura<br>
+            mientras esperamos juntos la llegada<br>
+            de nuestra pequeña Melody Alondra 🌸
+          </p>
+
+          <div class="divider"></div>
+
+          <p class="detail-row">📅 Sábado 21 de Marzo del 2026</p>
+          <p class="detail-row">🕗 8:00 p.m.</p>
+          <p class="detail-row">📍 Jr. Pisagua 948, Segundo Piso</p>
+
+          <div class="divider"></div>
+
+          <!-- CUENTA REGRESIVA -->
+          <p class="cd-title">⏳ Faltan para el gran día</p>
+
+          <div class="cd-boxes" id="countdown">
+            <div class="cd-box">
+              <div class="num" id="days">--</div>
+              <div class="lbl">Días</div>
+            </div>
+            <div class="cd-box">
+              <div class="num" id="hours">--</div>
+              <div class="lbl">Horas</div>
+            </div>
+            <div class="cd-box">
+              <div class="num" id="minutes">--</div>
+              <div class="lbl">Min</div>
+            </div>
+            <div class="cd-box">
+              <div class="num" id="seconds">--</div>
+              <div class="lbl">Seg</div>
+            </div>
+          </div>
+
+          <div id="event-msg">🎉 ¡Hoy es el gran día! 🎉</div>
+
+          <p class="confirm-label">💌 Confirma tu asistencia escribiéndonos</p>
+
+          <!-- BOTÓN WHATSAPP -->
+          <a class="wa-btn"
+             href="https://wa.me/51994160886?text=%C2%A1Hola!%20Confirmo%20mi%20asistencia%20al%20Baby%20Shower%20de%20Melody%20Alondra%20%F0%9F%8E%80%F0%9F%8D%BC%20el%20s%C3%A1bado%2021%20de%20Marzo%20a%20las%208%3A00%20p.m.%20en%20Jr.%20Pisagua%20948.%20%C2%A1All%C3%A1%20estar%C3%A9!%20%F0%9F%8E%80"
+             target="_blank">
+            <svg viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Confirmar por WhatsApp
+          </a>
+
+          <div class="footer-deco">🌸 🍼 🎀 👶 🎀 🍼 🌸</div>
+
+        </div><!-- /data-area -->
+      </div><!-- /content -->
+    </div><!-- /overlay -->
+  </div><!-- /card -->
+
+  <script>
+    /* ── Cuenta regresiva ── */
+    const eventDate = new Date("2026-03-21T20:00:00").getTime();
+
+    function tick() {
+      const dist = eventDate - Date.now();
+      if (dist <= 0) {
+        document.getElementById("countdown").style.display = "none";
+        document.getElementById("event-msg").style.display = "block";
+        return;
+      }
+      const pad = n => String(n).padStart(2, "0");
+      document.getElementById("days").textContent    = pad(Math.floor(dist / 86400000));
+      document.getElementById("hours").textContent   = pad(Math.floor(dist % 86400000 / 3600000));
+      document.getElementById("minutes").textContent = pad(Math.floor(dist % 3600000  / 60000));
+      document.getElementById("seconds").textContent = pad(Math.floor(dist % 60000    / 1000));
+    }
+    tick();
+    setInterval(tick, 1000);
+
+    /* ── Emojis flotantes temáticos ── */
+    const emojis = ["🍼","💗","🧸","🎀","👶","💕","🌸","🩷","⭐","🌷","🧷","🎁","🦋"];
+    const container = document.getElementById("floats");
+
+    for (let i = 0; i < 26; i++) {
+      const el = document.createElement("span");
+      el.textContent              = emojis[Math.floor(Math.random() * emojis.length)];
+      el.style.left               = Math.random() * 100 + "vw";
+      el.style.fontSize           = (0.85 + Math.random() * 1.1) + "rem";
+      el.style.animationDuration  = (7 + Math.random() * 12) + "s";
+      el.style.animationDelay     = (Math.random() * 10) + "s";
+      container.appendChild(el);
+    }
+  </script>
+
+</body>
+</html>
